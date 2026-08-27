@@ -55,7 +55,7 @@ jobs:
 
       - name: Limit native build to arm64-v8a
         run: |
-          sed -i 's/ndkVersion "27.2.12479018"/ndkVersion "27.2.12479018"\n    ndk { abiFilters "arm64-v8a" }/' TMessagesProj/build.gradle
+          sed -i '/^    defaultConfig {/a\        ndk { abiFilters "arm64-v8a" }' TMessagesProj/build.gradle
           sed -i 's/abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"/abiFilters "arm64-v8a"/g' TMessagesProj_AppStandalone/build.gradle
 
       - name: Build standalone debug APK
