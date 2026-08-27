@@ -66,6 +66,7 @@ import com.google.common.collect.Lists;
 import org.telegram.PhoneFormat.PhoneFormat;
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.ApplicationLoader;
+import org.telegram.messenger.AbualazgramSettings;
 import org.telegram.messenger.AuthTokensHelper;
 import org.telegram.messenger.BirthdayController;
 import org.telegram.messenger.BuildVars;
@@ -690,6 +691,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
 
         items.add(SettingCell.Factory.of(1, IconBackgroundColors.BLUE.top, IconBackgroundColors.BLUE.bottom, R.drawable.settings_account, getString(R.string.SettingsAccount), getString(R.string.SettingsAccountInfo)));
         items.add(SettingCell.Factory.of(2, IconBackgroundColors.ORANGE.top, IconBackgroundColors.ORANGE.bottom, R.drawable.settings_chat, getString(R.string.SettingsChat), getString(R.string.SettingsChatInfo)));
+        items.add(SettingCell.Factory.of(24, 0xFFD4AF37, 0xFF8A6A16, R.drawable.settings_power, getString(R.string.AbualazgramLuxuryMode), AbualazgramSettings.isLuxuryModeEnabled() ? getString(R.string.AbualazgramPerformanceHigh) : getString(R.string.AbualazgramPerformanceBalanced)));
         items.add(SettingCell.Factory.of(3, IconBackgroundColors.GREEN.top, IconBackgroundColors.GREEN.bottom, R.drawable.settings_privacy, getString(R.string.SettingsPrivacySecurity), getString(R.string.SettingsPrivacySecurityInfo)));
         items.add(SettingCell.Factory.of(5, IconBackgroundColors.RED.top, IconBackgroundColors.RED.bottom, R.drawable.settings_sounds, getString(R.string.SettingsNotifications), getString(R.string.SettingsNotificationsInfo)));
         items.add(SettingCell.Factory.of(6, IconBackgroundColors.BLUE_DEEP.top, IconBackgroundColors.BLUE_DEEP.bottom, R.drawable.settings_data, getString(R.string.SettingsData), getString(R.string.SettingsDataInfo)));
@@ -817,6 +819,11 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                 break;
             case 3:
                 presentSettingFragment(new PrivacySettingsActivity());
+                break;
+            case 24:
+                AbualazgramSettings.setLuxuryModeEnabled(!AbualazgramSettings.isLuxuryModeEnabled());
+                listView.adapter.update(true);
+                Toast.makeText(getParentActivity(), getString(R.string.AbualazgramLuxuryMode) + ": " + (AbualazgramSettings.isLuxuryModeEnabled() ? getString(R.string.AbualazgramPerformanceHigh) : getString(R.string.AbualazgramPerformanceBalanced)), Toast.LENGTH_SHORT).show();
                 break;
             case 5:
                 presentSettingFragment(new NotificationsSettingsActivity());

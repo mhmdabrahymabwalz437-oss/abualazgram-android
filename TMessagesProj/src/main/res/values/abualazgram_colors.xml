@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="abualazgram_black">#0A0A0C</color>
+    <color name="abualazgram_gold">#D4AF37</color>
+    <color name="abualazgram_gold_soft">#F1D78A</color>
+    <color name="abualazgram_platinum">#D7D9DE</color>
+    <color name="abualazgram_platinum_dark">#737780</color>
+    <color name="abualazgram_royal_blue">#1F4FA3</color>
+    <color name="abualazgram_royal_blue_light">#5D8FE5</color>
+</resources>

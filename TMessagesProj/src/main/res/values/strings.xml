@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="AppName">Telegram</string>
-    <string name="AppNameBeta">Telegram Beta</string>
+    <string name="AppName">ABUALAZGRAM</string>
+    <string name="AppNameBeta">ABUALAZGRAM Beta</string>
+    <string name="AbualazgramLuxuryMode">Luxury Mode</string>
+    <string name="AbualazgramThemeBlackGold">Black + Gold</string>
+    <string name="AbualazgramThemeBlackPlatinum">Black + Platinum</string>
+    <string name="AbualazgramThemeRoyalBlue">Royal Blue</string>
+    <string name="AbualazgramPerformanceBalanced">Balanced performance</string>
+    <string name="AbualazgramPerformanceHigh">High performance</string>
+    <string name="AbualazgramPerformanceEconomy">Economy mode</string>
+    <string name="AbualazgramAppLock">App lock</string>
+    <string name="AbualazgramHiddenChats">Hidden chats</string>
+    <string name="AbualazgramUnofficialNotice">ABUALAZGRAM is an unofficial Telegram client.</string>
     <string name="LanguageName">English</string>
     <string name="English">English</string>
     <string name="LanguageNameInEnglish">English</string>

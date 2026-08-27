@@ -1,46 +1,61 @@
-## Telegram messenger for Android
+# ABUALAZGRAM
 
-[Telegram](https://telegram.org) is a messaging app with a focus on speed and security. It’s superfast, simple and free.
-This repo contains the official source code for [Telegram App for Android](https://play.google.com/store/apps/details?id=org.telegram.messenger).
+ABUALAZGRAM هو عميل Android مستقل مبني على مصدر Telegram Android المفتوح المصدر. التطبيق غير رسمي ولا تدّعي هذه النسخة أنها صادرة عن Telegram أو موثقة منها. الاسم والهوية البصرية مستقلان، ولا تستخدم الأيقونة شعار Telegram القياسي.
 
-## Creating your Telegram Application
+## المصدر والترخيص
 
-We welcome all developers to use our API and source code to create applications on our platform.
-There are several things we require from **all developers** for the moment.
+الأساس البرمجي هو مستودع [DrKLO/Telegram](https://github.com/DrKLO/Telegram)، وهو المصدر الرسمي المنشور لتطبيق Telegram Android، مع وحداته الفرعية. يخضع المصدر الأساسي للترخيص الظاهر في المستودع، وهو **GNU GPL v2 أو أحدث**، كما قد توجد تراخيص مستقلة للمكتبات والوحدات الفرعية. يجب إبقاء إشعارات حقوق النشر والتراخيص ونشر مصدر التعديلات وفق الالتزامات المنطبقة.
 
-1. [**Obtain your own api_id**](https://core.telegram.org/api/obtaining_api_id) for your application.
-2. Please **do not** use the name Telegram for your app — or make sure your users understand that it is unofficial.
-3. Kindly **do not** use our standard logo (white paper plane in a blue circle) as your app's logo.
-3. Please study our [**security guidelines**](https://core.telegram.org/mtproto/security_guidelines) and take good care of your users' data and privacy.
-4. Please remember to publish **your** code too in order to comply with the licences.
+## الهوية
 
-### API, Protocol documentation
+اسم التطبيق الظاهر هو **ABUALAZGRAM**، ومعرّف التطبيق هو `com.abualaz.abualazgram`. المطوّر/الهوية: **محمد إبراهيم أبو العز**. استُخدمت الصورة المرفقة كأصل للهوية والأيقونة مع الحفاظ على أبعادها ومحتواها؛ لا توجد صورة شخصية منفصلة مرفقة لإضافتها إلى شاشة الملف الشخصي.
 
-Telegram API manuals: https://core.telegram.org/api
+## ما تم تعديله
 
-MTproto protocol manuals: https://core.telegram.org/mtproto
+تم تغيير اسم التطبيق واسم النسخة التجريبية في مورد اللغة الأساسي، وتعيين معرف Android مستقل، واستبدال أيقونات launcher في كثافات Android الأساسية بأيقونة مشتقة من الهوية المرفقة، وإزالة ملفات Google Services الخاصة بالتطبيق الرسمي حتى لا تُستخدم بياناته في نسخة مستقلة. كما أزيلت قيم API الرسمية المضمّنة من `BuildVars.java`، وعُطّل فحص تحديثات المتجر وميزة Passkeys التي يعلّق المصدر الرسمي بأنها تعمل فقط مع معرّفات التطبيقات الرسمية.
 
-### Compilation Guide
+## إعداد Telegram API
 
-**Note**: In order to support [reproducible builds](https://core.telegram.org/reproducible-builds), this repo contains dummy release.keystore,  google-services.json and filled variables inside BuildVars.java. Before publishing your own APKs please make sure to replace all these files with your own.
+يجب على المطوّر إنشاء `api_id` و`api_hash` خاصين به من [Telegram API development tools](https://my.telegram.org/apps)، ثم إدخالهما في إعدادات بناء خاصة غير منشورة. لا تضع هذه القيم في مستودع عام، ولا تعِد استخدام مفاتيح Telegram الرسمية. تسجيل الدخول يتم عبر آليات Telegram الرسمية فقط، ولا تُخزّن كلمات المرور أو رموز التحقق خارج آليات العميل الأصلية.
 
-You will require Android Studio 2025.1.4, Android NDK 27.2.12479018 and Android SDK 36.
+## متطلبات البناء
 
-1. Clone the Telegram source code with its submodules:
-   ```bash
-   git clone --recursive --shallow-submodules https://github.com/DrKLO/Telegram.git Telegram
-   ```
-   In case you forgot the `--recursive` flag, change to the `Telegram` directory and run:
-   ```bash
-   git submodule init && git submodule update --init --recursive --depth=1
-   ```
-2. Copy your release.keystore into TMessagesProj/config
-3. Fill out RELEASE_KEY_PASSWORD, RELEASE_KEY_ALIAS, RELEASE_STORE_PASSWORD in gradle.properties to access your  release.keystore
-4.  Go to https://console.firebase.google.com/, create two android apps with application IDs org.telegram.messenger and org.telegram.messenger.beta, turn on firebase messaging and download google-services.json, which should be copied to the same folder as TMessagesProj.
-5. Open the project in the Studio (note that it should be opened, NOT imported).
-6. Fill out values in TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java – there’s a link for each of the variables showing where and which data to obtain.
-7. You are ready to compile Telegram.
+وفق README للمصدر، يلزم Android Studio 2025.1.4 وAndroid SDK 36 وAndroid NDK 27.2.12479018. كما يلزم إعداد `release.keystore` الخاص بالمطوّر داخل `TMessagesProj/config`، وضبط متغيرات التوقيع في `gradle.properties`. ولتفعيل خدمات Google أو الإشعارات عبر Firebase، أنشئ مشروع Firebase خاصًا بـ `com.abualaz.abualazgram` وضع ملف `google-services.json` الخاص بك في الوحدة المناسبة؛ لا تستخدم الملف الرسمي المحذوف من هذه النسخة.
 
-### Localization
+## التشغيل والبناء
 
-We moved all translations to https://translations.telegram.org/en/android/. Please use it.
+افتح مجلد المشروع في Android Studio بدل استيراده كمشروع جديد. بعد توفير API ID وAPI Hash وملف التوقيع وملف Firebase عند الحاجة، نفّذ مهمة debug المناسبة من Gradle لبناء APK تجريبي، أو مهمة `assembleAfatStandalone`/المهمة المطابقة التي يعرضها Gradle لبناء نسخة standalone. لبناء AAB استخدم مهمة `bundle` المقابلة لنوع البناء. تختلف أسماء المهام النهائية حسب Android Gradle Plugin والـ flavor المختار، ولذلك يُنصح أولًا بتشغيل `./gradlew tasks --all`.
+
+> لا يمكن إنتاج APK/AAB قابل لتسجيل الدخول في هذه البيئة دون API ID/API Hash خاصين بالمطوّر، وملف Firebase، وشهادة توقيع مناسبة. وجود ملف debug لا يعني أنه مناسب للنشر.
+
+## الميزات الأساسية
+
+يحافظ الأساس على وظائف العميل الأصلي التي يدعمها المصدر، بما فيها المحادثات الخاصة والمجموعات والقنوات والوسائط والملفات والرسائل الصوتية والبحث والإشعارات والرسائل غير المقروءة والمكالمات عندما تكون مدعومة في الإصدار الأصلي، إضافة إلى الوضعين الداكن والفاتح.
+
+## حدود ميزات KRGram المقترحة
+
+يمكن إضافة تحسينات محلية آمنة مثل الثيم، وميزة إخفاء محادثات محمية بقفل محلي، وخيارات أداء وطمس للوسائط. أما تعطيل مؤقتات التدمير الذاتي، أو تجاوز منع لقطات الشاشة، أو نسخ/حفظ المحتوى المقيد، أو Ghost Mode، أو إظهار الرسائل المحذوفة، أو تنزيل القصص المقيدة، فهي ليست ميزات يمكن ضمان تنفيذها قانونيًا أو تقنيًا كتحسينات محلية؛ قد تتعارض مع حماية الخصوصية أو قيود الخادم أو شروط Telegram، ولذلك لم تُنفّذ في هذه النسخة.
+
+## الخصوصية
+
+لا يضيف المشروع نظام جمع سري للبيانات. يجب مراجعة أذونات Android، ومفاتيح Firebase، وسياسات التوزيع، وإعدادات التوقيع قبل أي نشر. تقع مسؤولية الامتثال لشروط Telegram API والتراخيص المحلية وتراخيص جميع الوحدات الفرعية على جهة التوزيع.
+
+## ملفات مهمة
+
+`gradle.properties` يحدد الإصدار ومعرف الحزمة. `TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java` يحتوي على إعدادات البناء وحقول API الفارغة التي يجب تعبئتها بطريقة خاصة. `TMessagesProj/src/main/res/values/strings.xml` يحتوي على اسم التطبيق الأساسي. مجلد `assets/` يحوي نسخة الهوية المرفقة المستخدمة لإنشاء الأيقونات.
+
+## تقرير التغييرات
+
+راجع `CHANGELOG_REPORT.md` للاطلاع على تفاصيل الملفات المعدّلة، ما يمكن بناؤه مباشرة، وما يحتاج إلى بيانات المطوّر أو مراجعة إضافية.
+
+## المراجع
+
+1. [Telegram Android source repository](https://github.com/DrKLO/Telegram)
+2. [Telegram API: Obtaining an API ID](https://core.telegram.org/api/obtaining_api_id)
+3. [Telegram API documentation](https://core.telegram.org/api)
+4. [Telegram MTProto security guidelines](https://core.telegram.org/mtproto/security_guidelines)
+5. [Telegram reproducible builds](https://core.telegram.org/reproducible-builds)
+
+## الإضافات الموسعة
+
+أضيفت طبقة `AbualazgramSettings.java` لتخزين إعدادات العميل المحلية الخاصة بـ Luxury Mode، لوحات الألوان الفاخرة، أنماط الأداء المتوازن/العالي/الاقتصادي، قفل التطبيق، وإخفاء المحادثات. صُممت الطبقة بحيث لا تعترض MTProto ولا تغيّر حالات Telegram على الخادم. مصفوفة القرارات الكاملة للميزات الجديدة موجودة في `FEATURE_POLICY.md`، بما في ذلك الميزات المستبعدة مثل Ghost Mode الاصطناعي وAnti-Delete وتجاوز المحتوى المقيد وإزالة الرسائل الممولة.
