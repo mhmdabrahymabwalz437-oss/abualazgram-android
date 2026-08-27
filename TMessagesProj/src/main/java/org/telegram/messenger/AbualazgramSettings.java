@@ -35,7 +35,7 @@ public final class AbualazgramSettings {
     }
 
     public static boolean isLuxuryModeEnabled() {
-        return prefs().getBoolean(KEY_LUXURY_MODE, false);
+        return prefs().getBoolean(KEY_LUXURY_MODE, true);
     }
 
     public static void setLuxuryModeEnabled(boolean enabled) {

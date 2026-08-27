@@ -2,7 +2,7 @@ from pathlib import Path
 from PIL import Image
 
 root = Path('/home/ubuntu/abualazgram')
-source = root / 'assets' / 'abualazgram-icon-master.png'
+source = root / 'assets' / 'abualazgram-icon-v3.png'
 img = Image.open(source).convert('RGB')
 size = min(img.size)
 left = (img.width - size) // 2

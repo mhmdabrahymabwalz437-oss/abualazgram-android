@@ -76,6 +76,7 @@ import androidx.core.math.MathUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.telegram.messenger.AbualazgramSettings;
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.ApplicationLoader;
 import org.telegram.messenger.Bitmaps;
@@ -9614,6 +9615,31 @@ public class Theme {
     }
 
     public static Drawable createDefaultWallpaper(int w, int h) {
+        if (ApplicationLoader.applicationContext != null && AbualazgramSettings.isLuxuryModeEnabled()) {
+            try {
+                int wallpaperResId;
+                switch (AbualazgramSettings.getThemePalette()) {
+                    case ROYAL_BLUE:
+                        wallpaperResId = R.drawable.abualazgram_wallpaper_royal_blue;
+                        break;
+                    case BLACK_PLATINUM:
+                        wallpaperResId = R.drawable.abualazgram_wallpaper_platinum_black;
+                        break;
+                    case BLACK_GOLD:
+                    default:
+                        wallpaperResId = R.drawable.abualazgram_wallpaper_obsidian_gold;
+                        break;
+                }
+                Bitmap bitmap = BitmapFactory.decodeResource(ApplicationLoader.applicationContext.getResources(), wallpaperResId);
+                if (bitmap != null) {
+                    BitmapDrawable drawable = new BitmapDrawable(ApplicationLoader.applicationContext.getResources(), bitmap);
+                    drawable.setFilterBitmap(true);
+                    return drawable;
+                }
+            } catch (Throwable e) {
+                FileLog.e(e);
+            }
+        }
         MotionBackgroundDrawable motionBackgroundDrawable = new MotionBackgroundDrawable(0xffdbddbb, 0xff6ba587, 0xffd5d88d, 0xff88b884, w != 0);
         if (w <= 0 || h <= 0) {
             w = Math.min(AndroidUtilities.displaySize.x, AndroidUtilities.displaySize.y);
