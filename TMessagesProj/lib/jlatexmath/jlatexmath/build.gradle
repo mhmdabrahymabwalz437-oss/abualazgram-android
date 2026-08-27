@@ -1,0 +1,38 @@
+apply plugin: 'com.android.library'
+
+android {
+
+    namespace 'ru.noties.jlatexmath.android'
+    compileSdk 36
+    buildToolsVersion '36.0.0'
+
+    defaultConfig {
+        minSdk 21
+    }
+
+    // Match the minApi flavor used by TMessagesProj so AGP can select a consumable variant.
+    flavorDimensions "minApi"
+    productFlavors {
+        afat {
+            dimension "minApi"
+        }
+    }
+
+    sourceSets {
+        // disable original tests as they rely on image creation
+        test.java.srcDirs = []
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+repositories {
+    google()
+    mavenCentral()
+}
+
+dependencies {
+    api 'androidx.annotation:annotation:1.7.0'
+}
