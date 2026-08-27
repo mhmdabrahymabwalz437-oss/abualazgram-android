@@ -53,6 +53,11 @@ jobs:
           test -n "$API_HASH"
           ./tools/prepare_ci_credentials.sh
 
+      - name: Disable unavailable Google Services config for standalone build
+        run: |
+          sed -i '/apply plugin: .com.google.gms.google-services./d' TMessagesProj/build.gradle
+          sed -i '/apply plugin: .com.google.gms.google-services./d' TMessagesProj_AppStandalone/build.gradle
+
       - name: Limit native build to arm64-v8a
         run: |
           sed -i '/^    defaultConfig {/a\        ndk { abiFilters "arm64-v8a" }' TMessagesProj/build.gradle
