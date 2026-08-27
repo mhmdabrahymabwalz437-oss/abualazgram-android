@@ -12,8 +12,8 @@
 -->
 
 <resources>
-    <string name="exteraAppName" translatable="false">AyuGram</string>
-    <string name="Preferences">exteraGram Preferences</string>
+    <string name="exteraAppName" translatable="false">ABUALAZGRAM</string>
+    <string name="Preferences">ABUALAZGRAM Preferences</string>
 
     <!-- Main Menu -->
     <string name="Links">Links</string>
