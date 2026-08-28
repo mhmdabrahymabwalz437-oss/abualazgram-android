@@ -96,6 +96,9 @@ import java.util.concurrent.CountDownLatch;
 
 public class ChatEditActivity extends BaseFragment implements ImageUpdater.ImageUpdaterDelegate, NotificationCenter.NotificationCenterDelegate {
 
+    // Local editor limit requested for ABUALAZGRAM; Telegram may still enforce server-side limits.
+    private static final int ABUALAZGRAM_GLOBAL_BIO_LIMIT = 5000;
+
     private View doneButton;
 
     private AlertDialog progressDialog;
@@ -787,7 +790,7 @@ public class ChatEditActivity extends BaseFragment implements ImageUpdater.Image
         descriptionTextView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         descriptionTextView.setEnabled(currentUser != null || ChatObject.canChangeChatInfo(currentChat));
         descriptionTextView.setFocusable(descriptionTextView.isEnabled());
-        descriptionTextView.setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(255)});
+        descriptionTextView.setFilters(new InputFilter.LengthFilter[]{new InputFilter.LengthFilter(ABUALAZGRAM_GLOBAL_BIO_LIMIT)});
         descriptionTextView.setHint(LocaleController.getString("DescriptionOptionalPlaceholder", R.string.DescriptionOptionalPlaceholder));
         descriptionTextView.setCursorColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText));
         descriptionTextView.setCursorSize(AndroidUtilities.dp(20));
