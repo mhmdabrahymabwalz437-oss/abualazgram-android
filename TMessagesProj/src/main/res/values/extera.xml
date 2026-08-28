@@ -20,7 +20,6 @@
     <string name="AboutExteraDescription">Experimental Telegram client based on Official Sources!</string>
     <string name="Channel">Channel</string>
     <string name="Crowdin">Translate</string>
-    <string name="SourceCode">Source Code</string>
     <string name="Categories">Categories</string>
 
     <!-- Appearance -->

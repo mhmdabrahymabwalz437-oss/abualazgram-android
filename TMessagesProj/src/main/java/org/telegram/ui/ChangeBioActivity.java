@@ -51,6 +51,9 @@ import java.util.ArrayList;
 
 public class ChangeBioActivity extends BaseFragment {
 
+    // Telegram may enforce a smaller server-side limit; this is the local editor limit requested for ABUALAZGRAM.
+    private static final int ABUALAZGRAM_BIO_LIMIT = 5000;
+
     private EditTextBoldCursor firstNameField;
     private OutlineTextContainerView firstNameFieldContainer;
 
@@ -93,7 +96,7 @@ public class ChangeBioActivity extends BaseFragment {
             public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
                 super.onInitializeAccessibilityNodeInfo(info);
                 Editable s = getEditableText();
-                int number = getMessagesController().getAboutLimit() - Character.codePointCount(s, 0, s.length());
+                int number = ABUALAZGRAM_BIO_LIMIT - Character.codePointCount(s, 0, s.length());
                 info.setText(getText() + ", " + LocaleController.formatPluralString("PeopleJoinedRemaining", number));
             }
         };
@@ -122,7 +125,7 @@ public class ChangeBioActivity extends BaseFragment {
         });
 
         InputFilter[] inputFilters = new InputFilter[1];
-        inputFilters[0] = new CodepointsLengthInputFilter(getMessagesController().getAboutLimit()) {
+        inputFilters[0] = new CodepointsLengthInputFilter(ABUALAZGRAM_BIO_LIMIT) {
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
                 if (source != null && source.length() > 0 && TextUtils.indexOf(source, '\n') == source.length() - 1) {
@@ -159,11 +162,11 @@ public class ChangeBioActivity extends BaseFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                firstNameFieldContainer.setText(String.format("%s (%d)", LocaleController.getString("UserBio", R.string.UserBio), getMessagesController().getAboutLimit() - Character.codePointCount(s, 0, s.length())));
+                firstNameFieldContainer.setText(String.format("%s (%d)", LocaleController.getString("UserBio", R.string.UserBio), ABUALAZGRAM_BIO_LIMIT - Character.codePointCount(s, 0, s.length())));
             }
         });
 
-        firstNameFieldContainer.setText(String.format("%s (%d)", LocaleController.getString("UserBio", R.string.UserBio), getMessagesController().getAboutLimit()));
+        firstNameFieldContainer.setText(String.format("%s (%d)", LocaleController.getString("UserBio", R.string.UserBio), ABUALAZGRAM_BIO_LIMIT));
 
         helpTextView = new TextView(context);
         helpTextView.setFocusable(true);

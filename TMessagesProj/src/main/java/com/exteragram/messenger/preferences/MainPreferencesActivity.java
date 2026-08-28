@@ -18,6 +18,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -34,7 +35,7 @@ import org.telegram.messenger.BuildVars;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.R;
-import org.telegram.messenger.browser.Browser;
+import org.telegram.ui.ChatActivity;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.HeaderCell;
@@ -60,7 +61,6 @@ public class MainPreferencesActivity extends BasePreferencesActivity {
 
     private int infoHeaderRow;
     private int aboutExteraRow;
-    private int sourceCodeRow;
     private int channelRow;
     private int groupRow;
     private int crowdinRow;
@@ -205,7 +205,6 @@ public class MainPreferencesActivity extends BasePreferencesActivity {
         channelRow = newRow();
         groupRow = newRow();
         crowdinRow = newRow();
-        sourceCodeRow = newRow();
         infoDividerRow = newRow();
     }
 
@@ -214,14 +213,14 @@ public class MainPreferencesActivity extends BasePreferencesActivity {
         if (position == aboutExteraRow) {
             if (!BuildVars.PM_BUILD)
                 (new UpdaterBottomSheet(getParentActivity(), this, false, null)).show();
-        } else if (position == sourceCodeRow) {
-            Browser.openUrl(getParentActivity(), "https://github.com/AyuGram/AyuGram4A");
         } else if (position == channelRow) {
-            MessagesController.getInstance(currentAccount).openByUserName(("ayugram1338"), this, 1);
+            MessagesController.getInstance(currentAccount).openByUserName(("Groupmastersupport"), this, 1);
         } else if (position == groupRow) {
-            MessagesController.getInstance(currentAccount).openByUserName(("ayugramchat"), this, 1);
+            Bundle args = new Bundle();
+            args.putLong("chat_id", 5401215856L);
+            presentFragment(new ChatActivity(args));
         } else if (position == crowdinRow) {
-            Browser.openUrl(getParentActivity(), "https://crowdin.com/project/ayugram");
+            MessagesController.getInstance(currentAccount).openByUserName(("sharqawi_support"), this, 1);
         } else if (position == appearanceRow) {
             presentFragment(new AppearancePreferencesActivity());
         } else if (position == chatsRow) {
@@ -276,13 +275,11 @@ public class MainPreferencesActivity extends BasePreferencesActivity {
                     } else if (position == otherRow) {
                         textCell.setTextAndIcon(LocaleController.getString("LocalOther", R.string.LocalOther), R.drawable.msg_fave, false);
                     }else if (position == channelRow) {
-                        textCell.setTextAndValueAndIcon(LocaleController.getString("Channel", R.string.Channel), "@ayugram1338", R.drawable.msg_channel, true);
+                        textCell.setTextAndValueAndIcon(LocaleController.getString("Channel", R.string.Channel), "@Groupmastersupport", R.drawable.msg_channel, true);
                     } else if (position == groupRow) {
-                        textCell.setTextAndValueAndIcon(LocaleController.getString("SearchAllChatsShort", R.string.SearchAllChatsShort), "@ayugramchat", R.drawable.msg_groups, true);
+                        textCell.setTextAndValueAndIcon(LocaleController.getString("SearchAllChatsShort", R.string.SearchAllChatsShort), "-5401215856", R.drawable.msg_groups, true);
                     } else if (position == crowdinRow) {
-                        textCell.setTextAndValueAndIcon(LocaleController.getString("Crowdin", R.string.Crowdin), "Crowdin", R.drawable.msg_translate, true);
-                    } else if (position == sourceCodeRow) {
-                        textCell.setTextAndValueAndIcon(LocaleController.getString("SourceCode", R.string.SourceCode), "GitHub", R.drawable.msg_delete, false);
+                        textCell.setTextAndValueAndIcon(LocaleController.getString("Support", R.string.Support), "@sharqawi_support", R.drawable.msg_help, true);
                     }
                     break;
                 case 3:

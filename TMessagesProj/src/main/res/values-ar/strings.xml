@@ -3117,7 +3117,7 @@
     <string name="ActionBotDocumentRentalAgreement">عقد الإيجار</string>
     <string name="ActionBotDocumentPhone">رقم الهاتف</string>
     <string name="ActionBotDocumentEmail">بريد إلكتروني</string>
-    <string name="UnsupportedMedia">نسخة تيليجرام التي لديك لاتدعم هذه الرسالة. حدّث التطبيق لعرضها: https://telegram.org/update</string>
+    <string name="UnsupportedMedia">هذه الرسالة غير مدعومة في هذه النسخة. حدّث ABUALAZGRAM لعرضها: https://github.com/AyuGram/AyuGram4A/releases/latest</string>
     <string name="AttachPhoto">صورة</string>
     <string name="AttachVideo">مقطع مرئي</string>
     <string name="AttachDestructingPhoto">صورة ذاتية التدمير</string>
