@@ -68,16 +68,28 @@ jobs:
         run: |
           sed -i '/^    defaultConfig {/a\        ndk { abiFilters "arm64-v8a" }' TMessagesProj/build.gradle
 
-      - name: Build arm64 release APK
+      - name: Cache native and Gradle outputs
+        uses: actions/cache@v4
+        with:
+          path: |
+            TMessagesProj/.cxx
+            TMessagesProj/build
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: abualazgram-arm64-${{ runner.os }}-${{ hashFiles('TMessagesProj/jni/**', 'TMessagesProj/build.gradle', 'gradle.properties') }}
+          restore-keys: |
+            abualazgram-arm64-${{ runner.os }}-
+
+      - name: Build arm64 debug APK
         run: |
           chmod +x gradlew
-          ./gradlew assembleArm64Release \
+          ./gradlew assembleArm64Debug \
             --no-daemon --no-parallel --max-workers=1 --no-configuration-cache \
-            -Dorg.gradle.jvmargs='-Xmx3g -XX:MaxMetaspaceSize=1g'
+            --console=plain -Dorg.gradle.jvmargs='-Xmx3g -XX:MaxMetaspaceSize=1g'
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: abualazgram-arm64-release
-          path: TMessagesProj/build/outputs/apk/arm64/release/*.apk
+          name: abualazgram-arm64-debug-api-fixed
+          path: TMessagesProj/build/outputs/apk/arm64/debug/*.apk
           if-no-files-found: error
