@@ -83,7 +83,7 @@ jobs:
       - name: Build arm64 debug APK
         run: |
           chmod +x gradlew
-          ./gradlew assembleArm64Debug \
+          ./gradlew :TMessagesProj:assembleArm64Debug \
             --no-daemon --no-parallel --max-workers=1 --no-configuration-cache \
             --console=plain -Dorg.gradle.jvmargs='-Xmx3g -XX:MaxMetaspaceSize=1g'
 
