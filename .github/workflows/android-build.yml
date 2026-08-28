@@ -80,16 +80,16 @@ jobs:
           restore-keys: |
             abualazgram-arm64-${{ runner.os }}-
 
-      - name: Build arm64 debug APK
+      - name: Build arm64 release APK
         run: |
           chmod +x gradlew
-          ./gradlew :TMessagesProj:assembleArm64Debug \
+          ./gradlew :TMessagesProj:assembleArm64Release \
             --no-daemon --no-parallel --max-workers=1 --no-configuration-cache \
             --console=plain -Dorg.gradle.jvmargs='-Xmx3g -XX:MaxMetaspaceSize=1g'
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: abualazgram-arm64-debug-api-fixed
-          path: TMessagesProj/build/outputs/apk/arm64/debug/*.apk
+          name: abualazgram-arm64-api-fixed
+          path: TMessagesProj/build/outputs/apk/arm64/release/*.apk
           if-no-files-found: error
