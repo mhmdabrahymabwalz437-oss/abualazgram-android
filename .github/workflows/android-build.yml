@@ -1,0 +1,95 @@
+name: ABUALAZGRAM Modern Android Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ modern-nekogram ]
+    paths-ignore:
+      - '**.md'
+
+permissions:
+  contents: read
+
+jobs:
+  build-arm64:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      ANDROID_PLATFORM: android-37
+      ANDROID_BUILD_TOOLS: 37.0.0
+      ANDROID_NDK_VERSION: 27.3.13750724
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android components
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "platform-tools" "platforms;${ANDROID_PLATFORM}" "build-tools;${ANDROID_BUILD_TOOLS}" "ndk;${ANDROID_NDK_VERSION}"
+          printf 'sdk.dir=%s\n' "$ANDROID_HOME" > local.properties
+
+      - name: Configure API credentials
+        env:
+          API_ID: ${{ secrets.TELEGRAM_API_ID }}
+          API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
+          MAPS_API_KEY: ${{ secrets.MAPS_KEY }}
+        run: |
+          test -n "$API_ID"
+          test -n "$API_HASH"
+          {
+            printf 'apiId=%s\n' "$API_ID"
+            printf 'apiHash=%s\n' "$API_HASH"
+            printf 'mapsApiKey=%s\n' "$MAPS_API_KEY"
+          } >> local.properties
+
+      - name: Configure Google services
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -n "$GOOGLE_SERVICES_JSON" ]; then
+            printf '%s' "$GOOGLE_SERVICES_JSON" | base64 --decode > TMessagesProj_App/google-services.json
+          else
+            cat > TMessagesProj_App/google-services.json <<'JSON'
+          {"project_info":{"project_number":"000000000000","project_id":"abualazgram-build","storage_bucket":"abualazgram-build.appspot.com"},"client":[{"client_info":{"mobilesdk_app_id":"1:000000000000:android:0000000000000000","android_client_info":{"package_name":"com.abualaz.abualazgram.neko"}},"api_key":[{"current_key":""}],"services":{"appinvite_service":{"other_platform_oauth_client":[]}}}]}
+          JSON
+          fi
+
+      - name: Limit native build to arm64-v8a
+        run: |
+          sed -i '/^    defaultConfig {/a\        ndk { abiFilters "arm64-v8a" }' TMessagesProj/build.gradle
+
+      - name: Build release APK
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon --no-parallel --max-workers=1 --console=plain \
+            -Dorg.gradle.jvmargs='-Xmx4g -XX:MaxMetaspaceSize=1g'
+
+      - name: Upload arm64 APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: abualazgram-modern-arm64
+          path: TMessagesProj_App/build/outputs/apk/release/*arm64-v8a.apk
+          if-no-files-found: error
+
+      - name: Upload all release outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: abualazgram-modern-release-outputs
+          path: TMessagesProj_App/build/outputs
+          if-no-files-found: error
+
+      - name: Cleanup secret-generated files
+        if: always()
+        run: rm -f local.properties TMessagesProj_App/google-services.json
