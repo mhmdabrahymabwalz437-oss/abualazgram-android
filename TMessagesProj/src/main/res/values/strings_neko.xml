@@ -2,6 +2,8 @@
 <resources>
     <string name="AppNameNeko" translatable="false">@string/ABUALAZGRAM</string>
     <string name="ABUALAZGRAM" translatable="false">ABUALAZGRAM</string>
+    <!-- Compatibility alias for legacy Nekogram code paths; the visible app name remains ABUALAZGRAM. -->
+    <string name="Nekogram" translatable="false">ABUALAZGRAM</string>
     <string name="NekogramBeta" translatable="false">ABUALAZGRAM Beta</string>
     <string name="NekoSettings">Neko Settings</string>
     <string name="PreferIPv6">Prefer connecting through IPv6</string>
