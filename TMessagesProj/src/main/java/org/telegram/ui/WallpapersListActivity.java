@@ -1344,6 +1344,13 @@ public class WallpapersListActivity extends BaseFragment implements Notification
             }
             wallPapers.add(0, addedColorWallpaper);
         }
+        // ABUALAZGRAM luxury wallpaper collection, bundled for instant offline preview.
+        wallPapers.add(new FileWallpaper("abualazgram_obsidian_gold", R.drawable.wallpaper_obsidian_gold, R.drawable.wallpaper_obsidian_gold));
+        wallPapers.add(new FileWallpaper("abualazgram_royal_blue", R.drawable.wallpaper_royal_blue, R.drawable.wallpaper_royal_blue));
+        wallPapers.add(new FileWallpaper("abualazgram_platinum_black", R.drawable.wallpaper_platinum_black, R.drawable.wallpaper_platinum_black));
+        wallPapers.add(new FileWallpaper("abualazgram_midnight_marble", R.drawable.wallpaper_midnight_marble, R.drawable.wallpaper_midnight_marble));
+        wallPapers.add(new FileWallpaper("abualazgram_crown_geometry", R.drawable.wallpaper_crown_geometry, R.drawable.wallpaper_crown_geometry));
+
         if (Theme.DEFAULT_BACKGROUND_SLUG.equals(selectedBackgroundSlug) || wallPapers.isEmpty()) {
             wallPapers.add(0, catsWallpaper);
         } else {

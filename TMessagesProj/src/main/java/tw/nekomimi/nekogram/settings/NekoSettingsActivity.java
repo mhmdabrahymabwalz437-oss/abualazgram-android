@@ -175,10 +175,10 @@ public class NekoSettingsActivity extends BaseNekoSettingsActivity implements Fa
         }
         items.add(UItem.asShadow(null));
 
-        items.add(UItem.asButton(channelRow, R.drawable.msg_channel, LocaleController.getString(R.string.OfficialChannel), "@Groupmastersupport").slug("channel"));
-        items.add(UItem.asButton(websiteRow, R.drawable.msg_language, LocaleController.getString(R.string.Support), "@sharqawi_support").slug("website"));
+        items.add(UItem.asButton(channelRow, R.drawable.ic_abualazgram_crown, LocaleController.getString(R.string.OfficialChannel), "@Groupmastersupport").slug("channel"));
+        items.add(UItem.asButton(websiteRow, R.drawable.ic_abualazgram_sparkles, LocaleController.getString(R.string.Support), "@sharqawi_support").slug("website"));
         items.add(UItem.asButton(discussionGroupRow, R.drawable.msg_discussion, LocaleController.getString(R.string.Chat), "-5401215856").slug("discussionGroup"));
-        items.add(UItem.asButton(supportRow, R.drawable.msg_help, LocaleController.getString(R.string.Support), "@sharqawi_support").slug("support"));
+        items.add(UItem.asButton(supportRow, R.drawable.ic_abualazgram_shield, LocaleController.getString(R.string.Support), "@sharqawi_support").slug("support"));
         items.add(UItem.asButtonSubtext(translationRow, R.drawable.msg_translate, LocaleController.getString(R.string.Translation), LocaleController.getString(R.string.TranslationAbout)).slug("translation"));
         items.add(UItem.asButtonSubtext(donateRow, R.drawable.msg_input_like, LocaleController.getString(R.string.Donate), LocaleController.getString(R.string.DonateAbout)).slug("donate"));
         items.add(UItem.asShadow(null));
