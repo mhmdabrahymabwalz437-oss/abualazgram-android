@@ -256,6 +256,17 @@ def getProps(String propName) {
 }
 apply plugin: 'com.google.gms.google-services'
 
+// تعطيل مهام Sentry في بيئة CI
+if (System.getenv("CI") == "true") {
+    gradle.projectsEvaluated {
+        tasks.whenTaskAdded { task ->
+            if (task.name.contains("Sentry")) {
+                task.enabled = false
+            }
+        }
+    }
+}
+
 task checkVisibility {
     doFirst {
         def isPrivateBuild = project.gradle.startParameter.taskNames.find {
