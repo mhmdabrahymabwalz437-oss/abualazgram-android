@@ -155,4 +155,15 @@ android {
     }
 }
 
+// تعطيل مهام Sentry في بيئة GitHub Actions CI
+if (System.getenv("GITHUB_ACTIONS") == "true") {
+    gradle.projectsEvaluated {
+        tasks.whenTaskAdded { task ->
+            if (task.name.contains("Sentry")) {
+                task.enabled = false
+            }
+        }
+    }
+}
+
 apply plugin: 'com.google.gms.google-services'
